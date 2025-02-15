@@ -6,7 +6,6 @@ library(shinythemes)
 library(ggplot2)
 library(colourpicker)
 
-# Define UI for application that draws a histogram
 page_navbar(
   title = "Some apps I found interesting to make",
   theme = bs_theme(version = 4, bootswatch = "sketchy"),
@@ -14,9 +13,7 @@ page_navbar(
   navset_tab(
   #Dice ----
   nav_panel(title = "Dice",
-    # Application title
     titlePanel("Dice Simulator"),
-    
     tags$div("My children Play",
      tags$a(href="https://en.wikipedia.org/wiki/Machi_Koro",
                   "Machi Koro"),
