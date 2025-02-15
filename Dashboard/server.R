@@ -1,17 +1,7 @@
-#
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    https://shiny.posit.co/
-#
-
 library(shiny)
 library(xkcd)
 library(tidyverse)
 
-# Define server logic required to draw a histogram
 function(input, output, session) {
   #this is ugly but effective
   #would accept help!
@@ -23,25 +13,12 @@ function(input, output, session) {
   observeEvent(input$dice.custom_button, {d1$size <- input$dice.custom_number})
   eventReactive(input$dice.custom_number, {d1$size <- input$dice.custom_number})
   
-  # d2 <- reactiveValues(size = 0)
-  # observeEvent(input$dice.go1,    {d2$size <- 1})
-  # observeEvent(input$dice.go10,   {d2$size <- 10})
-  # observeEvent(input$dice.go100,  {d2$size <- 100})
-  # observeEvent(input$dice.go1000, {d2$size <- 1000})
-  # observeEvent(input$dice.custom_button, {d2$size <- input$dice.custom_number})
-  # 
   output$dice.ui <- renderUI({
     actionButton("dice.custom_button",
                  renderText({paste(input$dice.custom_number, "times")
                  })
     )
   })
-  
-  # out <- reactive(switch(input$dice.dice_amount,
-  #                        one = sample(1:6, size = d1$size, replace = TRUE),
-  #                        two = sample(1:6, size = d1$size, replace = TRUE) +
-  #                              sample(1:6, size = d2$size, replace = TRUE)
-  # ))
   
   dice.dat <- reactive({
     dice.dat.rv <-
@@ -55,11 +32,6 @@ function(input, output, session) {
             summarize(y = n()) |>
             ungroup()
   }) 
-  
-  # dice.dat <- tibble(x = c(1,3,5,5,6)) |>
-  #   group_by(x) |>
-  #   summarize(y = n()) |>
-  #   ungroup()
   
   x_range_max <- reactive({
     case_when(input$dice.dice_amount == "one" ~ 6.5,
